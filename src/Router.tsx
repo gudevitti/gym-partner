@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import TrainingPage from "./pages/Training/Training.page";
+import WorkoutTrackingPage from "./pages/WorkoutTracking/WorkoutTracking.page";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -22,7 +23,7 @@ const Router = () => {
         },
         {
           path: "/workout-tracking",
-          element: <div>Workout tracking</div>,
+          element: <WorkoutTrackingPage />,
         },
         /*
         Workout and exercise editing page:

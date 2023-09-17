@@ -1,10 +1,12 @@
-import { Button } from "@mui/material";
+import { AccessTime, FitnessCenter, Loop } from "@mui/icons-material";
+import { Box, Button } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import React from "react";
 import { useNavigate } from "react-router";
+import { Workout } from "./Training";
 /*
 Training page:
     - Main training dashboard
@@ -13,19 +15,6 @@ Training page:
     - Workout journal
     - Exercise log
 */
-
-interface Exercise {
-  id: number;
-  name: string;
-  restTime: number;
-  weight: number;
-  reps: number;
-}
-interface Workout {
-  id: number;
-  name: string;
-  exercises: Exercise[];
-}
 
 const workoutsMock = [
   {
@@ -37,6 +26,8 @@ const workoutsMock = [
         name: "Squat",
         restTime: 60,
         weight: 100,
+        weightUnit: "kg",
+        series: 3,
         reps: 10,
       },
       {
@@ -44,6 +35,8 @@ const workoutsMock = [
         name: "Bench Press",
         restTime: 45,
         weight: 80,
+        weightUnit: "kg",
+        series: 3,
         reps: 8,
       },
       {
@@ -51,6 +44,8 @@ const workoutsMock = [
         name: "Deadlift",
         restTime: 90,
         weight: 120,
+        weightUnit: "kg",
+        series: 3,
         reps: 6,
       },
     ],
@@ -64,13 +59,17 @@ const workoutsMock = [
         name: "Overhead Press",
         restTime: 60,
         weight: 50,
+        weightUnit: "kg",
+        series: 3,
         reps: 10,
       },
       {
         id: 2,
         name: "Pull-ups",
         restTime: 45,
-        weight: 0,
+        weight: 30,
+        weightUnit: "kg",
+        series: 3,
         reps: 8,
       },
       {
@@ -78,6 +77,8 @@ const workoutsMock = [
         name: "Barbell Row",
         restTime: 90,
         weight: 70,
+        weightUnit: "kg",
+        series: 3,
         reps: 6,
       },
     ],
@@ -91,6 +92,8 @@ const workoutsMock = [
         name: "Leg Press",
         restTime: 60,
         weight: 150,
+        weightUnit: "kg",
+        series: 3,
         reps: 10,
       },
       {
@@ -98,6 +101,8 @@ const workoutsMock = [
         name: "Dumbbell Fly",
         restTime: 45,
         weight: 20,
+        weightUnit: "kg",
+        series: 3,
         reps: 8,
       },
       {
@@ -105,6 +110,8 @@ const workoutsMock = [
         name: "Cable Tricep Extension",
         restTime: 90,
         weight: 30,
+        weightUnit: "kg",
+        series: 3,
         reps: 6,
       },
     ],
@@ -116,15 +123,17 @@ const TrainingPage = () => {
 
   const navigate = useNavigate();
 
-  const [selectedWorkout, setSelectedWorkout] = React.useState(
-    workouts[0].name
-  );
+  const [selectedWorkout, setSelectedWorkout] = React.useState(workouts[0]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setSelectedWorkout(event.target.value as string);
+    const workout =
+      workouts.find((workout) => workout.name === event.target.value) ||
+      workouts[0];
+    setSelectedWorkout(workout);
   };
 
   const handleStartWorkout = () => {
+    window.localStorage.setItem("workout", JSON.stringify(selectedWorkout));
     navigate("/workout-tracking");
   };
 
@@ -137,12 +146,14 @@ const TrainingPage = () => {
           variant="outlined"
           labelId="workout-select-label"
           id="workout-select"
-          value={selectedWorkout}
+          value={selectedWorkout.name}
           label="Treino"
           onChange={handleChange}
         >
           {workouts.map((workout) => (
-            <MenuItem value={workout.name}>{workout.name}</MenuItem>
+            <MenuItem key={workout.id} value={workout.name}>
+              {workout.name}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -151,6 +162,23 @@ const TrainingPage = () => {
           Start
         </Button>
       </FormControl>
+      {/* display list of exercises */}
+      {selectedWorkout.exercises.map((exercise) => (
+        <Box key={exercise.id}>
+          <h2>{exercise.name}</h2>
+          <p>
+            <AccessTime /> {exercise.restTime}s
+          </p>
+          <p>
+            <FitnessCenter /> {exercise.weight}
+            {exercise.weightUnit}
+          </p>
+          <p>
+            <Loop />
+            {exercise.series} séries - {exercise.reps} rep.
+          </p>
+        </Box>
+      ))}
     </div>
   );
 };
