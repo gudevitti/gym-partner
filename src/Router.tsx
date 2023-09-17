@@ -16,7 +16,14 @@ const Router = () => {
           - Workout journal
           - Exercise log
       */
-        { path: "/", element: <TrainingPage /> },
+        {
+          path: "/",
+          element: <TrainingPage />,
+        },
+        {
+          path: "/workout-tracking",
+          element: <div>Workout tracking</div>,
+        },
         /*
         Workout and exercise editing page:
           - Edit Workouts
