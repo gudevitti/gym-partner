@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  Link,
-  Outlet,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function App() {
   return (
