@@ -4,7 +4,9 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
+  FormControl,
+  Input,
+  InputAdornment,
 } from "@mui/material";
 import React from "react";
 import { Exercise } from "../../Training/Training";
@@ -17,15 +19,8 @@ interface ExerciseTrackingProps {
   expanded: boolean;
 }
 
-const WeightButton = ({ value, onClick }: any) => {
-  const operator = value < 0 ? "" : "+";
-  return (
-    <Button value={value} onClick={onClick} variant="outlined">
-      {operator}
-      {value}
-    </Button>
-  );
-};
+// TODO:
+// - [ ] Add a total exercise timer
 
 const ExerciseTracking = ({
   exercise,
@@ -36,7 +31,7 @@ const ExerciseTracking = ({
     React.useState<Exercise>(exercise);
 
   const handleWeightChange = (event: any) => {
-    const newWeight = Number(event.target.value) + exerciseTracking.weight;
+    const newWeight = Number(event.target.value);
     setExerciseTracking({
       ...exerciseTracking,
       weight: newWeight < 0 ? 0 : newWeight,
@@ -65,25 +60,26 @@ const ExerciseTracking = ({
               <Loop /> <span>{exerciseTracking.reps} rep.</span>
             </Box>
           </Box>
-          <Box my={1} display="flex" gap={1}>
-            <FitnessCenter />
-            Peso:
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <WeightButton value={-10} onClick={handleWeightChange} />
-            <WeightButton value={-1} onClick={handleWeightChange} />
-
-            <h4>
-              {exerciseTracking.weight}
-              {exerciseTracking.weightUnit}
-            </h4>
-            <WeightButton value={1} onClick={handleWeightChange} />
-            <WeightButton value={10} onClick={handleWeightChange} />
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <Box my={1} display="flex" gap={1}>
+              <FitnessCenter />
+              Peso:
+            </Box>
+            <FormControl sx={{ m: 1, width: "13ch" }} variant="outlined">
+              <Input
+                type="number"
+                id="outlined-adornment-weight"
+                endAdornment={
+                  <InputAdornment position="end">kg</InputAdornment>
+                }
+                aria-describedby="outlined-weight-helper-text"
+                inputProps={{
+                  "aria-label": "weight",
+                }}
+                onChange={handleWeightChange}
+                value={exerciseTracking.weight}
+              />
+            </FormControl>
           </Box>
         </Box>
       </AccordionDetails>
