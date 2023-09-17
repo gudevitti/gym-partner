@@ -12,7 +12,7 @@ const WorkoutTrackingPage = () => {
 
   const [expanded, setExpanded] = React.useState<number | false>(false);
 
-  const { start, stop, isRunning, timer } = useTimer();
+  const { start, stop, isRunning, timer } = useTimer(0, "stopwatch");
 
   const handleExerciseChange =
     (panel: number) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -42,6 +42,7 @@ const WorkoutTrackingPage = () => {
       </Box>
       {workout.exercises.map((exercise) => (
         <ExerciseTracking
+          key={exercise.id}
           exercise={exercise}
           handleExerciseChange={handleExerciseChange}
           expanded={expanded === exercise.id}
