@@ -4,18 +4,20 @@ const useTimer = () => {
   const [timer, setTimer] = React.useState(0);
   const [isRunning, setIsRunning] = React.useState(false);
 
-  let timerInterval: any;
+  let timerInterval = React.useRef<NodeJS.Timeout | null>(null);
 
+  console.log(timerInterval);
   function start() {
     setIsRunning(true);
-    timerInterval = setInterval(() => {
+    timerInterval.current = setInterval(() => {
       setTimer((timer) => timer + 1);
     }, 1000);
   }
 
   function stop() {
     setIsRunning(false);
-    clearInterval(timerInterval);
+    clearInterval(timerInterval.current as NodeJS.Timeout);
+    timerInterval.current = null;
   }
 
   function reset() {
