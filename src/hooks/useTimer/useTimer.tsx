@@ -34,8 +34,7 @@ const useTimer = (initialTimer = 0, style: TimerStyle = "timer") => {
   }
 
   function reset() {
-    setIsRunning(false);
-    setTimer(0);
+    setTimer(initialTimer);
     stop();
   }
 

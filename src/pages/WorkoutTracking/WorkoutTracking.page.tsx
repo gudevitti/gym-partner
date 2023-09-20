@@ -3,7 +3,7 @@ import React from "react";
 import Timer from "../../components/Timer/Timer";
 import useTimer from "../../hooks/useTimer/useTimer";
 import { Workout } from "../Training/Training";
-import ExerciseTracking from "./components/ExerciseTracking";
+import ExerciseTracking from "./components/ExerciseTracking/ExerciseTracking";
 
 const WorkoutTrackingPage = () => {
   const storageWorkout =
@@ -12,12 +12,11 @@ const WorkoutTrackingPage = () => {
 
   const [expanded, setExpanded] = React.useState<number | false>(false);
 
-  const { start, stop, isRunning, timer } = useTimer(0, "stopwatch");
+  const { start, stop, isRunning, timer } = useTimer(0, "timer");
 
-  const handleExerciseChange =
-    (panel: number) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+  const handleExerciseChange = (panel: number) => {
+    setExpanded(panel);
+  };
 
   return (
     <>
