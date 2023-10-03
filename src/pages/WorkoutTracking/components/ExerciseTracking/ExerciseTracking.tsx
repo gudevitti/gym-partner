@@ -37,10 +37,10 @@ const ExerciseTracking = ({
     React.useState<Exercise>(exercise);
 
   const handleWeightChange = (event: any) => {
-    const newWeight = Number(event.target.value);
+    const newWeight = event.target.value;
     setExerciseTracking({
       ...exerciseTracking,
-      weight: newWeight < 0 ? 0 : newWeight,
+      weight: newWeight,
     });
   };
 

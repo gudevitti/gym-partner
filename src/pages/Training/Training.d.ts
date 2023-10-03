@@ -2,10 +2,10 @@ export interface Exercise {
   id: number;
   name: string;
   restTime: number;
-  weight: number;
+  weight?: string;
   weightUnit?: string;
-  series: number;
-  reps: number;
+  series: string;
+  reps: string;
 }
 export interface Workout {
   id: number;

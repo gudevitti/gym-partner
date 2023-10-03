@@ -1,12 +1,22 @@
-import { AccessTime, FitnessCenter, Loop } from "@mui/icons-material";
-import { Box, Button } from "@mui/material";
+import { TimerOutlined } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import React from "react";
 import { useNavigate } from "react-router";
+import workoutsMock from "../../mocks/workouts/workoutsMock";
 import { Workout } from "./Training";
+import ExerciseDisplay from "./components/ExerciseDisplay";
+
 /*
 Training page:
     - Main training dashboard
@@ -15,108 +25,6 @@ Training page:
     - Workout journal
     - Exercise log
 */
-
-const workoutsMock = [
-  {
-    id: 1,
-    name: "Treino A",
-    exercises: [
-      {
-        id: 1,
-        name: "Squat",
-        restTime: 60,
-        weight: 100,
-        weightUnit: "kg",
-        series: 3,
-        reps: 10,
-      },
-      {
-        id: 2,
-        name: "Bench Press",
-        restTime: 45,
-        weight: 80,
-        weightUnit: "kg",
-        series: 3,
-        reps: 8,
-      },
-      {
-        id: 3,
-        name: "Deadlift",
-        restTime: 90,
-        weight: 120,
-        weightUnit: "kg",
-        series: 3,
-        reps: 6,
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Treino B",
-    exercises: [
-      {
-        id: 1,
-        name: "Overhead Press",
-        restTime: 60,
-        weight: 50,
-        weightUnit: "kg",
-        series: 3,
-        reps: 10,
-      },
-      {
-        id: 2,
-        name: "Pull-ups",
-        restTime: 45,
-        weight: 30,
-        weightUnit: "kg",
-        series: 3,
-        reps: 8,
-      },
-      {
-        id: 3,
-        name: "Barbell Row",
-        restTime: 90,
-        weight: 70,
-        weightUnit: "kg",
-        series: 3,
-        reps: 6,
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Treino C",
-    exercises: [
-      {
-        id: 1,
-        name: "Leg Press",
-        restTime: 60,
-        weight: 150,
-        weightUnit: "kg",
-        series: 3,
-        reps: 10,
-      },
-      {
-        id: 2,
-        name: "Dumbbell Fly",
-        restTime: 45,
-        weight: 20,
-        weightUnit: "kg",
-        series: 3,
-        reps: 8,
-      },
-      {
-        id: 3,
-        name: "Cable Tricep Extension",
-        restTime: 90,
-        weight: 30,
-        weightUnit: "kg",
-        series: 3,
-        reps: 6,
-      },
-    ],
-  },
-];
 
 const TrainingPage = () => {
   const workouts: Workout[] = workoutsMock;
@@ -138,8 +46,8 @@ const TrainingPage = () => {
   };
 
   return (
-    <div>
-      <h1>Training</h1>
+    <Box display="flex" flexDirection="column" height="100%" gap="16px">
+      <h1>Escolha seu treino 🔥</h1>
       <FormControl fullWidth>
         <InputLabel id="workout-select-label">Treino</InputLabel>
         <Select
@@ -157,29 +65,35 @@ const TrainingPage = () => {
           ))}
         </Select>
       </FormControl>
+      <Box mt={2} mb={3}>
+        <Table size="small">
+          <TableHead>
+            <TableCell></TableCell>
+            <TableCell>Série</TableCell>
+            <TableCell>Reps.</TableCell>
+            <TableCell>
+              <TimerOutlined />
+            </TableCell>
+            <TableCell>Carga</TableCell>
+          </TableHead>
+          <TableBody>
+            {/* display list of exercises */}
+            {selectedWorkout.exercises.map((exercise, index) => (
+              <ExerciseDisplay
+                key={exercise.id}
+                exercise={exercise}
+                index={index}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
       <FormControl fullWidth>
         <Button variant="contained" onClick={handleStartWorkout}>
           Start
         </Button>
       </FormControl>
-      {/* display list of exercises */}
-      {selectedWorkout.exercises.map((exercise) => (
-        <Box key={exercise.id}>
-          <h2>{exercise.name}</h2>
-          <p>
-            <AccessTime /> {exercise.restTime}s
-          </p>
-          <p>
-            <FitnessCenter /> {exercise.weight}
-            {exercise.weightUnit}
-          </p>
-          <p>
-            <Loop />
-            {exercise.series} séries - {exercise.reps} rep.
-          </p>
-        </Box>
-      ))}
-    </div>
+    </Box>
   );
 };
 
