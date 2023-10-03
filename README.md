@@ -6,9 +6,9 @@ The core functionalities are being developed in the following order:
 - Workout tracking
 - Exercise management
 - Build workout
+- Database storage (this will be integrated with gym-partner-service trough it's development)
 
 Some really interesting functionalities for the future are:
-- Database storage
 - WORKOUT ANALYTICS
 - Login and account management
 - Trainer and athlete relation
