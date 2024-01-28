@@ -6,6 +6,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TableRow,
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -16,15 +17,6 @@ import { useNavigate } from "react-router";
 import workoutsMock from "../../mocks/workouts/workoutsMock";
 import { Workout } from "./Training";
 import ExerciseDisplay from "./components/ExerciseDisplay";
-
-/*
-Training page:
-    - Main training dashboard
-    - Workout of the day
-    - Workout session tracker
-    - Workout journal
-    - Exercise log
-*/
 
 const TrainingPage = () => {
   const workouts: Workout[] = workoutsMock;
@@ -68,13 +60,15 @@ const TrainingPage = () => {
       <Box mt={2} mb={3}>
         <Table size="small">
           <TableHead>
-            <TableCell></TableCell>
-            <TableCell>Série</TableCell>
-            <TableCell>Reps.</TableCell>
-            <TableCell>
-              <TimerOutlined />
-            </TableCell>
-            <TableCell>Carga</TableCell>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell>Série</TableCell>
+              <TableCell>Reps.</TableCell>
+              <TableCell>
+                <TimerOutlined />
+              </TableCell>
+              {/* <TableCell>Carga</TableCell> */}
+            </TableRow>
           </TableHead>
           <TableBody>
             {/* display list of exercises */}

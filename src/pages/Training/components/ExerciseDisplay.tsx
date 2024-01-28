@@ -19,12 +19,12 @@ const ExerciseDisplay = ({ exercise, index }: ExerciseDisplayProps) => {
         <TableCell align="center">{exercise.series}</TableCell>
         <TableCell align="center">{exercise.reps}</TableCell>
         <TableCell>{exercise.restTime}s</TableCell>
-        <TableCell style={{ whiteSpace: "nowrap" }}>
+        {/* <TableCell style={{ whiteSpace: "nowrap" }}>
           {`
         ${exercise.weight}
         ${exercise.weightUnit}
         `}
-        </TableCell>
+        </TableCell> */}
       </TableRow>
     </>
   );

@@ -68,7 +68,7 @@ const treinoA: Workout = {
       reps: "12+12",
     },
     {
-      id: 7,
+      id: 8,
       name: "Rosca scott unilateral",
       restTime: 45,
       weight: "1",
