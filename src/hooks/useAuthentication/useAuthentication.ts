@@ -3,7 +3,7 @@ import { AuthObject } from "../../auth/auth";
 const AUTH_STORAGE_KEY = 'auth';
 
 const useAuthentication = () =>{
-    const authMock = {token: 'asdasd'};
+    const authMock = {};
     
 
     function setAuth(auth: AuthObject){
